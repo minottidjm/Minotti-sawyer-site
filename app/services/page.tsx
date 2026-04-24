@@ -31,10 +31,10 @@ const services = [
 ];
 
 const focusAreas = [
-  "Technology",
-  "Industrial & Manufacturing",
-  "Finance & Operations Leadership",
-  "Growth & Transformation",
+  "Business & Technology Transformation",
+  "Data & Analytics",
+  "AI",
+  "Finance & Supply Chain Operations",
 ];
 
 export default function ServicesPage() {
