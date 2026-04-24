@@ -13,7 +13,7 @@ export default function Footer() {
             </p>
           </div>
           <a
-            href="https://calendar.google.com/YOUR-BOOKING-LINK-HERE"
+            href="https://calendar.app.google/aktDGw5varJkS6HU9"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex shrink-0 rounded-full bg-[#A68C5C] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#8f7649]"
