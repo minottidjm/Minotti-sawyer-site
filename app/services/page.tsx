@@ -79,8 +79,7 @@ export default function ServicesPage() {
             Built for consequential hiring moments.
           </h2>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[#4B5563]">
-            Premium executive search focused on private equity, industrial, finance, operations,
-            and growth leadership environments.
+            Premium executive search focused on Technology, Data & Analytics, AI, Finance & Supply Chain operations across a diverse set of industries.
           </p>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {focusAreas.map((item) => (

@@ -138,8 +138,7 @@ export default function MinottiSawyerHomepage() {
                 Built for consequential hiring moments.
               </h2>
               <p className="mt-4 text-lg leading-8 text-slate-600">
-                Premium executive search focused on private equity, industrial, finance, operations,
-                and growth leadership environments.
+                Premium executive search focused on Technology, Data & Analytics, AI, Finance & Supply Chain operations across a diverse set of industries.
               </p>
             </div>
             <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
