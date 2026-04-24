@@ -1,4 +1,5 @@
 import Link from "next/link";
+import GoogleCalendarButton from "../components/GoogleCalendarButton";
 
 const services = [
   {
@@ -102,12 +103,9 @@ export default function ServicesPage() {
               Whether you need a retained search, an engaged model, or embedded recruiting support,
               we would welcome the conversation.
             </p>
-            <Link
-              href="/contact"
-              className="mt-8 inline-flex rounded-full bg-[#A68C5C] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#8f7649]"
-            >
-              Schedule a Conversation
-            </Link>
+            <div className="mt-8">
+              <GoogleCalendarButton />
+            </div>
           </div>
         </div>
       </section>

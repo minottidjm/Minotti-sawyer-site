@@ -1,22 +1,29 @@
 'use client';
 
 import Script from 'next/script';
-import { useRef, useState } from 'react';
+import { useRef, useEffect } from 'react';
+
+const CALENDAR_URL =
+  'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3Akuiw2Qtzas5_grNT4vLyN0gUuLbZFgMuAH1Jtf7F2v3HVO45YiRstzZBdSvOpTH-3pZMkO-W?gv=true';
+
+function initButton(target: HTMLElement) {
+  (window as any).calendar?.schedulingButton?.load({
+    url: CALENDAR_URL,
+    color: '#19273E',
+    label: 'Schedule a Confidential 30-Minute Discussion',
+    target,
+  });
+}
 
 export default function GoogleCalendarButton() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const [loaded, setLoaded] = useState(false);
 
-  function init() {
-    if (loaded && targetRef.current && (window as any).calendar) {
-      (window as any).calendar.schedulingButton.load({
-        url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3Akuiw2Qtzas5_grNT4vLyN0gUuLbZFgMuAH1Jtf7F2v3HVO45YiRstzZBdSvOpTH-3pZMkO-W?gv=true',
-        color: '#19273E',
-        label: 'Schedule a Confidential 30-Minute Discussion',
-        target: targetRef.current,
-      });
+  // If the script is already loaded (e.g. navigating between pages), init immediately
+  useEffect(() => {
+    if (targetRef.current && (window as any).calendar?.schedulingButton) {
+      initButton(targetRef.current);
     }
-  }
+  }, []);
 
   return (
     <>
@@ -25,15 +32,7 @@ export default function GoogleCalendarButton() {
         src="https://calendar.google.com/calendar/scheduling-button-script.js"
         strategy="afterInteractive"
         onLoad={() => {
-          setLoaded(true);
-          if (targetRef.current && (window as any).calendar) {
-            (window as any).calendar.schedulingButton.load({
-              url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3Akuiw2Qtzas5_grNT4vLyN0gUuLbZFgMuAH1Jtf7F2v3HVO45YiRstzZBdSvOpTH-3pZMkO-W?gv=true',
-              color: '#19273E',
-              label: 'Schedule a Confidential 30-Minute Discussion',
-              target: targetRef.current,
-            });
-          }
+          if (targetRef.current) initButton(targetRef.current);
         }}
       />
       <div ref={targetRef} />

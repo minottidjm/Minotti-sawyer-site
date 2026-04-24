@@ -1,4 +1,5 @@
 import Link from "next/link";
+import GoogleCalendarButton from "../components/GoogleCalendarButton";
 
 const differentiators = [
   "We work with clients on leadership hires where judgment, discretion, and alignment matter.",
@@ -102,19 +103,8 @@ export default function AboutPage() {
               <p className="mt-4 text-lg leading-8 text-[#4B5563]">
                 If you are navigating a leadership hire where the stakes are high, we would welcome the conversation.
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link
-                  href="/contact"
-                  className="rounded-full bg-[#19273E] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#243553]"
-                >
-                  Contact Us
-                </Link>
-                <Link
-                  href="/services"
-                  className="rounded-full border border-[#D9D1C0] px-6 py-3 text-sm font-medium text-[#374151] transition hover:border-[#19273E] hover:text-[#19273E]"
-                >
-                  View Services
-                </Link>
+              <div className="mt-8">
+                <GoogleCalendarButton />
               </div>
             </div>
           </div>
