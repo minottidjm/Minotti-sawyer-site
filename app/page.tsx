@@ -143,7 +143,7 @@ export default function MinottiSawyerHomepage() {
               </p>
             </div>
             <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {['Private Equity', 'Industrial & Manufacturing', 'Finance & Operations Leadership', 'Growth & Transformation'].map((item) => (
+              {['Technology', 'Industrial & Manufacturing', 'Finance & Operations Leadership', 'Growth & Transformation'].map((item) => (
                 <div key={item} className="rounded-[1.5rem] border border-stone-200 bg-stone-50 p-6 text-base font-medium text-slate-800 shadow-sm">
                   {item}
                 </div>

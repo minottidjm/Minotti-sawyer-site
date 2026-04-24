@@ -31,7 +31,7 @@ const services = [
 ];
 
 const focusAreas = [
-  "Private Equity",
+  "Technology",
   "Industrial & Manufacturing",
   "Finance & Operations Leadership",
   "Growth & Transformation",
