@@ -224,11 +224,11 @@ export default function MinottiSawyerHomepage() {
                 <div className="mt-8 grid gap-4 text-base text-[#374151] sm:grid-cols-2">
                   <div>
                     <div className="font-medium">Email</div>
-                    <div className="mt-1 text-[#4B5563]">minottidjm@gmail.com</div>
+                    <a href="mailto:minottidjm@gmail.com" className="mt-1 block text-[#4B5563] hover:text-[#19273E] transition">minottidjm@gmail.com</a>
                   </div>
                   <div>
                     <div className="font-medium">Phone</div>
-                    <div className="mt-1 text-[#4B5563]">704-414-0237</div>
+                    <a href="tel:7044140237" className="mt-1 block text-[#4B5563] hover:text-[#19273E] transition">704-414-0237</a>
                   </div>
                   <div>
                     <div className="font-medium">Website</div>

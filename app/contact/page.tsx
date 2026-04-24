@@ -1,10 +1,10 @@
 import GoogleCalendarButton from "../components/GoogleCalendarButton";
 
 const contactDetails = [
-  { label: "Email", value: "minottidjm@gmail.com" },
-  { label: "Phone", value: "704-414-0237" },
-  { label: "Website", value: "www.minottisawyerassociates.com" },
-  { label: "Location", value: "Minnesota" },
+  { label: "Email", value: "minottidjm@gmail.com", href: "mailto:minottidjm@gmail.com" },
+  { label: "Phone", value: "704-414-0237", href: "tel:7044140237" },
+  { label: "Website", value: "www.minottisawyerassociates.com", href: null },
+  { label: "Location", value: "Minnesota", href: null },
 ];
 
 export default function ContactPage() {
@@ -46,7 +46,13 @@ export default function ContactPage() {
               {contactDetails.map((item) => (
                 <div key={item.label}>
                   <div className="text-sm font-medium text-[#19273E]">{item.label}</div>
-                  <div className="mt-1 text-base text-[#4B5563]">{item.value}</div>
+                  {item.href ? (
+                    <a href={item.href} className="mt-1 block text-base text-[#4B5563] hover:text-[#19273E] transition">
+                      {item.value}
+                    </a>
+                  ) : (
+                    <div className="mt-1 text-base text-[#4B5563]">{item.value}</div>
+                  )}
                 </div>
               ))}
             </div>
