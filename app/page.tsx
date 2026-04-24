@@ -93,6 +93,19 @@ export default function MinottiSawyerHomepage() {
                 Schedule a Conversation
               </Link>
             </div>
+            <div className="mt-8 rounded-[1.75rem] border border-[#E7E0D2] bg-white p-6 shadow-sm">
+              <p className="text-sm leading-7 text-[#4B5563]">
+                Whether you are hiring for a critical leadership role, building a confidential search strategy, or exploring the executive talent market, Minotti & Sawyer Associates offers a focused 30-minute introductory discussion.
+              </p>
+              <a
+                href="https://calendar.google.com/YOUR-BOOKING-LINK-HERE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex rounded-full bg-[#A68C5C] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#8f7649]"
+              >
+                Schedule a Confidential 30-Minute Discussion
+              </a>
+            </div>
           </div>
 
           <div className="rounded-[2rem] border border-[#E7E0D2] bg-white p-8 shadow-sm">
