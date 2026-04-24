@@ -1,3 +1,5 @@
+import GoogleCalendarButton from "./GoogleCalendarButton";
+
 export default function Footer() {
   return (
     <footer className="border-t border-[#E7E0D2] bg-[#19273E]">
@@ -12,14 +14,9 @@ export default function Footer() {
               Whether you are hiring for a critical leadership role, building a confidential search strategy, or exploring the executive talent market, Minotti & Sawyer Associates offers a focused 30-minute introductory discussion.
             </p>
           </div>
-          <a
-            href="https://calendar.app.google/aktDGw5varJkS6HU9"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex shrink-0 rounded-full bg-[#A68C5C] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#8f7649]"
-          >
-            Schedule a Confidential 30-Minute Discussion
-          </a>
+          <div className="shrink-0">
+            <GoogleCalendarButton />
+          </div>
         </div>
         <div className="mt-12 border-t border-white/10 pt-8 text-sm text-slate-400">
           © {new Date().getFullYear()} Minotti & Sawyer Associates. All rights reserved.

@@ -1,3 +1,5 @@
+import GoogleCalendarButton from "../components/GoogleCalendarButton";
+
 const contactDetails = [
   { label: "Email", value: "minottidjm@gmail.com" },
   { label: "Phone", value: "704-414-0237" },
@@ -23,14 +25,9 @@ export default function ContactPage() {
             <p className="text-sm leading-7 text-[#4B5563]">
               Whether you are hiring for a critical leadership role, building a confidential search strategy, or exploring the executive talent market, Minotti & Sawyer Associates offers a focused 30-minute introductory discussion.
             </p>
-            <a
-              href="https://calendar.app.google/aktDGw5varJkS6HU9"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex rounded-full bg-[#A68C5C] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#8f7649]"
-            >
-              Schedule a Confidential 30-Minute Discussion
-            </a>
+            <div className="mt-4">
+              <GoogleCalendarButton />
+            </div>
           </div>
         </div>
       </section>
