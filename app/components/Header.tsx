@@ -6,7 +6,7 @@ export default function Header() {
     <header className="border-b border-[#E7E0D2] bg-[#F8F6F2]/95 backdrop-blur sticky top-0 z-50">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
         <Link href="/">
-          <Image src="/minotti-sawyer-logo2.png" alt="Minotti | Sawyer — Consultants in Executive Search" width={160} height={160} className="h-16 w-auto" priority />
+          <Image src="/minotti-sawyer-logo2.png" alt="Minotti | Sawyer — Consultants in Executive Search" width={160} height={160} className="h-20 w-auto" priority />
         </Link>
         <nav className="hidden items-center gap-8 text-sm text-[#4B5563] md:flex">
           <Link href="/services" className="transition hover:text-[#19273E]">Services</Link>
