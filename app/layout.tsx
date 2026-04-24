@@ -10,7 +10,7 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   title: "Minotti | Sawyer — Consultants in Executive Search",
-  description: "Boutique executive search for high-stakes leadership hires. Partner-led, high-touch, and built for founders, investors, and boards.",
+  description: "Boutique executive search firm specializing in high-stakes leadership hires. Partner-led, high-touch, and built for founders, investors, and boards.",
 };
 
 export default function RootLayout({
