@@ -1,11 +1,13 @@
-import Link from "next/link";
-import GoogleCalendarButton from "../components/GoogleCalendarButton";
+import { CandidateInvite, HowWeWork, Partners } from "../components/sections";
+import { ButtonLink, Container, SectionHeading } from "../components/ui";
+import { pageMetadata } from "../lib/site";
 
-const differentiators = [
-  "We work with clients on leadership hires where judgment, discretion, and alignment matter.",
-  "Our process is designed for quality of hire, not recruiting volume.",
-  "We are especially well-suited to founder-led, investor-backed, and middle-market companies navigating growth, succession, or transformation.",
-];
+export const metadata = pageMetadata({
+  title: "About",
+  description:
+    "Minotti & Sawyer Associates is an executive search firm where clients and candidates work directly with the partners, Dan and Bill.",
+  path: "/about",
+});
 
 const values = [
   {
@@ -14,102 +16,64 @@ const values = [
   },
   {
     title: "Judgment",
-    text: "We assess fit across leadership style, organizational context, and business stage — not just credentials.",
+    text: "We assess fit across leadership style, organizational context, and business stage, not just credentials.",
   },
   {
-    title: "Process Discipline",
-    text: "Structured market mapping, direct outreach, and a rigorous assessment process designed for consequential hires.",
+    title: "Process discipline",
+    text: "Structured market mapping, direct outreach, and careful assessment, applied consistently to every search.",
   },
   {
     title: "Partnership",
-    text: "Partner-led from kickoff through close. You will always work directly with a senior member of the firm.",
+    text: "You work directly with the partners from the first conversation through the final decision.",
   },
 ];
 
 export default function AboutPage() {
   return (
-    <main className="bg-[#F8F6F2]">
-      {/* Hero */}
-      <section className="border-b border-[#E7E0D2] bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-          <div className="text-sm uppercase tracking-[0.2em] text-[#49604A]">About</div>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-[#19273E] sm:text-5xl">
-            Executive search with a business-first point of view.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4B5563]">
-            Minotti | Sawyer is built for leadership hires where the cost of getting it wrong is high.
-            We partner with founders, investors, boards, and executive teams to identify, attract,
-            assess, and close leaders for roles that shape pace, culture, execution quality, and
-            enterprise value.
-          </p>
-        </div>
+    <>
+      <section className="border-b border-brand-sand bg-white">
+        <Container className="py-16 sm:py-20">
+          <SectionHeading
+            as="h1"
+            eyebrow="About"
+            title="A search firm built on direct partner involvement."
+            intro={
+              <>
+                <p>
+                  Minotti &amp; Sawyer Associates helps companies find leaders who can guide growth,
+                  lead transformation, and strengthen business performance.
+                </p>
+                <p className="mt-4">
+                  We keep our practice focused so that every client works directly with Dan and Bill,
+                  and every candidate gets the same personal attention.
+                </p>
+              </>
+            }
+          />
+        </Container>
       </section>
 
-      {/* What Distinguishes the Firm */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <div className="text-sm uppercase tracking-[0.2em] text-[#49604A]">Our Approach</div>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#19273E] sm:text-4xl">
-              Built for companies that cannot afford to get it wrong.
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-[#4B5563]">
-              Most executive search firms are built for volume. We are not. Minotti | Sawyer is a boutique firm
-              designed for the searches where process discipline, market knowledge, and a genuine understanding
-              of the business context make a material difference in outcome.
-            </p>
-            <p className="mt-4 text-lg leading-8 text-[#4B5563]">
-              We work across industries but have deep experience in private equity portfolio companies,
-              industrial and manufacturing businesses, and founder-led growth companies.
-            </p>
-          </div>
-          <div className="rounded-[2rem] bg-[#19273E] p-8 text-white shadow-sm">
-            <div className="text-sm uppercase tracking-[0.2em] text-[#D9D1C0]">What distinguishes the firm</div>
-            <ul className="mt-6 space-y-4 text-base leading-7 text-slate-100">
-              {differentiators.map((point) => (
-                <li key={point}>• {point}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+      <HowWeWork />
+      <Partners />
 
-      {/* Values */}
-      <section className="border-t border-[#E7E0D2] bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-          <div className="text-sm uppercase tracking-[0.2em] text-[#49604A]">How We Work</div>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#19273E] sm:text-4xl">
-            The principles behind every engagement.
-          </h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+      <section aria-labelledby="values-heading" className="py-20 sm:py-24">
+        <Container>
+          <SectionHeading id="values-heading" eyebrow="Our Principles" title="What guides every engagement." />
+          <ul className="mt-12 grid gap-6 md:grid-cols-2">
             {values.map((value) => (
-              <div key={value.title} className="rounded-[1.75rem] border border-[#E7E0D2] bg-[#F8F6F2] p-8 shadow-sm">
-                <h3 className="text-xl font-semibold text-[#19273E]">{value.title}</h3>
-                <p className="mt-3 text-base leading-7 text-[#4B5563]">{value.text}</p>
-              </div>
+              <li key={value.title} className="rounded-3xl border border-brand-sand bg-white p-8">
+                <h3 className="font-serif text-2xl text-brand-navy">{value.title}</h3>
+                <p className="mt-3 leading-7 text-stone-700">{value.text}</p>
+              </li>
             ))}
+          </ul>
+          <div className="mt-12">
+            <ButtonLink href="/contact">Discuss a Hiring Need</ButtonLink>
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-[#E7E0D2] bg-[#F8F6F2]">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-          <div className="rounded-[2rem] border border-[#E7E0D2] bg-[#F8F6F2] p-10 shadow-sm">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl font-semibold tracking-tight text-[#19273E] sm:text-4xl">
-                Let's start a conversation.
-              </h2>
-              <p className="mt-4 text-lg leading-8 text-[#4B5563]">
-                If you are navigating a leadership hire where the stakes are high, we would welcome the conversation.
-              </p>
-              <div className="mt-8">
-                <GoogleCalendarButton />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      <CandidateInvite />
+    </>
   );
 }

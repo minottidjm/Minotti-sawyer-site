@@ -1,114 +1,116 @@
-import Link from "next/link";
-import GoogleCalendarButton from "../components/GoogleCalendarButton";
+import { ClosingContact, FocusAreas } from "../components/sections";
+import { ButtonLink, Container, SectionHeading } from "../components/ui";
+import { services } from "../lib/content";
+import { pageMetadata } from "../lib/site";
 
-const services = [
-  {
-    title: "Retained Executive Search",
-    text: "Exclusive search for mission-critical leadership roles where precision, discretion, and judgment matter.",
-    details: [
-      "Best for C-suite, GM, and critical VP hires",
-      "Structured market mapping and direct outreach",
-      "Partner-led process from kickoff through close",
-    ],
-  },
-  {
-    title: "Engaged Search",
-    text: "A flexible model for important senior hires where clients want real search rigor with a more adaptable fee structure.",
-    details: [
-      "Ideal for director, VP, and priority functional roles",
-      "Upfront commitment with aligned incentives",
-      "More disciplined than a transactional contingency model",
-    ],
-  },
-  {
-    title: "Embedded Talent Partner",
-    text: "Interim recruiting leadership and execution support for companies in periods of growth, transition, or transformation.",
-    details: [
-      "Useful during growth phases or leadership buildouts",
-      "Supports hiring strategy, scorecards, and pipeline reviews",
-      "Acts like an outsourced recruiting leader for a defined period",
-    ],
-  },
-];
-
-const focusAreas = [
-  "Business & Technology Transformation",
-  "Data & Analytics",
-  "AI",
-  "Finance & Supply Chain Operations",
-];
+export const metadata = pageMetadata({
+  title: "Services",
+  description:
+    "Retained executive search, engaged search, and embedded talent partnership from Minotti & Sawyer Associates, each shaped around your role, timing, and priorities.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
-    <main className="bg-[#F8F6F2]">
-      {/* Hero */}
-      <section className="border-b border-[#E7E0D2] bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-          <div className="text-sm uppercase tracking-[0.2em] text-[#49604A]">Services</div>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-[#19273E] sm:text-5xl">
-            Search models built for high-stakes hiring.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4B5563]">
-            We do not operate like a volume recruiting firm. Our work is structured, targeted,
-            and designed for roles where judgment matters.
-          </p>
-        </div>
+    <>
+      <section className="border-b border-brand-sand bg-white">
+        <Container className="py-16 sm:py-20">
+          <SectionHeading
+            as="h1"
+            eyebrow="Services"
+            title="Search support shaped around your situation."
+            intro={
+              <p>
+                Whether you are appointing an executive, making an important functional hire, or
+                building out a leadership team, we will recommend the approach that fits. Each
+                engagement is agreed with you before work begins.
+              </p>
+            }
+          />
+          <nav aria-label="Services on this page" className="mt-8">
+            <ul className="flex flex-wrap gap-3">
+              {services.map((service) => (
+                <li key={service.id}>
+                  <a
+                    href={`#${service.id}`}
+                    className="inline-block rounded-full border border-brand-sand bg-brand-cream px-4 py-2 font-medium text-brand-navy hover:border-brand-navy"
+                  >
+                    {service.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Container>
       </section>
 
-      {/* Service Cards */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="grid gap-6 lg:grid-cols-3">
-          {services.map((service) => (
-            <div key={service.title} className="rounded-[1.75rem] border border-[#E7E0D2] bg-white p-8 shadow-sm">
-              <h2 className="text-xl font-semibold text-[#19273E]">{service.title}</h2>
-              <p className="mt-4 text-base leading-7 text-[#4B5563]">{service.text}</p>
-              <ul className="mt-6 space-y-3 text-sm leading-6 text-[#4B5563]">
-                {service.details.map((item) => (
-                  <li key={item}>• {item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Practice Focus */}
-      <section className="border-t border-[#E7E0D2] bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-          <div className="text-sm uppercase tracking-[0.2em] text-[#49604A]">Practice Focus</div>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#19273E] sm:text-4xl">
-            Built for consequential hiring moments.
-          </h2>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-[#4B5563]">
-            Premium executive search focused on Technology, Data & Analytics, AI, Finance & Supply Chain operations across a diverse set of industries.
-          </p>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {focusAreas.map((item) => (
-              <div key={item} className="rounded-[1.5rem] border border-[#E7E0D2] bg-[#F8F6F2] p-6 text-base font-medium text-[#19273E] shadow-sm">
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="border-t border-[#E7E0D2] bg-[#F8F6F2]">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-          <div className="rounded-[2rem] bg-[#19273E] p-10 text-white shadow-sm">
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              Ready to discuss a search?
+      <Container className="space-y-10 py-16 sm:py-20">
+        {services.map((service) => (
+          <section
+            key={service.id}
+            id={service.id}
+            aria-labelledby={`${service.id}-heading`}
+            className="rounded-3xl border border-brand-sand bg-white p-6 sm:p-10"
+          >
+            <h2 id={`${service.id}-heading`} className="font-serif text-3xl text-brand-navy">
+              {service.title}
             </h2>
-            <p className="mt-4 max-w-xl text-lg leading-8 text-[#D9D1C0]">
-              Whether you need a retained search, an engaged model, or embedded recruiting support,
-              we would welcome the conversation.
-            </p>
-            <div className="mt-8">
-              <GoogleCalendarButton />
+            <p className="mt-3 text-lg leading-8 text-stone-700">{service.summary}</p>
+
+            <div className="mt-8 grid gap-8 lg:grid-cols-2">
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-olive">
+                  The situation
+                </h3>
+                <p className="mt-3 leading-7 text-stone-700">{service.situation}</p>
+                <h3 className="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-brand-olive">
+                  When it fits
+                </h3>
+                <ul className="mt-3 space-y-2 leading-7 text-stone-700">
+                  {service.fits.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-gold" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-olive">
+                  What the engagement includes
+                </h3>
+                <ul className="mt-3 space-y-2 leading-7 text-stone-700">
+                  {service.includes.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-gold" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                {service.note && (
+                  <p className="mt-6 rounded-2xl bg-brand-cream p-4 leading-7 text-stone-700">
+                    <strong className="text-brand-navy">Please note:</strong> {service.note}
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
+
+            <div className="mt-8 flex flex-col gap-4 border-t border-brand-sand pt-8 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-2xl leading-7 text-stone-700">
+                <strong className="text-brand-navy">Next step:</strong> {service.nextStep}
+              </p>
+              <ButtonLink href="/contact" className="shrink-0">
+                Discuss a Hiring Need
+              </ButtonLink>
+            </div>
+          </section>
+        ))}
+      </Container>
+
+      <div className="border-t border-brand-sand">
+        <FocusAreas />
+      </div>
+      <ClosingContact />
+    </>
   );
 }

@@ -6,8 +6,18 @@ import { useRef, useEffect } from 'react';
 const CALENDAR_URL =
   'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3Akuiw2Qtzas5_grNT4vLyN0gUuLbZFgMuAH1Jtf7F2v3HVO45YiRstzZBdSvOpTH-3pZMkO-W?gv=true';
 
+type CalendarWindow = Window & {
+  calendar?: {
+    schedulingButton?: {
+      load: (options: { url: string; color: string; label: string; target: HTMLElement }) => void;
+    };
+  };
+};
+
 function initButton(target: HTMLElement) {
-  (window as any).calendar?.schedulingButton?.load({
+  // Guard against adding a second button when the effect and onLoad both run.
+  if (target.childElementCount > 0) return;
+  (window as CalendarWindow).calendar?.schedulingButton?.load({
     url: CALENDAR_URL,
     color: '#19273E',
     label: 'Schedule a Confidential 30-Minute Discussion',
@@ -20,7 +30,7 @@ export default function GoogleCalendarButton() {
 
   // If the script is already loaded (e.g. navigating between pages), init immediately
   useEffect(() => {
-    if (targetRef.current && (window as any).calendar?.schedulingButton) {
+    if (targetRef.current && (window as CalendarWindow).calendar?.schedulingButton) {
       initButton(targetRef.current);
     }
   }, []);

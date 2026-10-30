@@ -1,149 +1,101 @@
+import { connection } from "next/server";
+import Link from "next/link";
+import { submitClientInquiry } from "../actions";
 import GoogleCalendarButton from "../components/GoogleCalendarButton";
+import InquiryForm from "../components/InquiryForm";
+import { Container, SectionHeading } from "../components/ui";
+import { isDeliveryConfigured } from "../lib/delivery";
+import { clientFields } from "../lib/forms";
+import { mailto, pageMetadata, site } from "../lib/site";
 
-const contactDetails = [
-  { label: "Email", value: "minottidjm@gmail.com", href: "mailto:minottidjm@gmail.com" },
-  { label: "Phone", value: "704-414-0237", href: "tel:7044140237" },
-  { label: "Website", value: "www.minottisawyerassociates.com", href: null },
-  { label: "Location", value: "Minnesota", href: null },
-];
+export const metadata = pageMetadata({
+  title: "Discuss a Hiring Need",
+  description:
+    "Tell Minotti & Sawyer Associates about a leadership hire. Share the role and your priorities, and the partners will follow up to arrange a conversation.",
+  path: "/contact",
+});
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  // Check delivery settings per request; they are runtime configuration, not build output.
+  await connection();
+  const deliveryConfigured = isDeliveryConfigured();
+
   return (
-    <main className="bg-[#F8F6F2]">
-      {/* Hero */}
-      <section className="border-b border-[#E7E0D2] bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-          <div className="text-sm uppercase tracking-[0.2em] text-[#49604A]">Contact</div>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-[#19273E] sm:text-5xl">
-            Let's discuss your leadership hiring priorities.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4B5563]">
-            Whether you are making a C-suite hire, building out your leadership bench,
-            or need interim recruiting support, we would welcome the conversation.
+    <>
+      <section className="border-b border-brand-sand bg-white">
+        <Container className="py-16 sm:py-20">
+          <SectionHeading
+            as="h1"
+            eyebrow="For Clients"
+            title="Discuss a hiring need."
+            intro={
+              <p>
+                Tell us about the leadership role you are filling and what matters most to your
+                business. Dan and Bill will review your note and follow up to arrange a conversation.
+              </p>
+            }
+          />
+        </Container>
+      </section>
+
+      <Container className="grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.3fr_0.7fr]">
+        <section aria-labelledby="inquiry-heading" className="rounded-3xl border border-brand-sand bg-white p-6 sm:p-10">
+          <h2 id="inquiry-heading" className="font-serif text-2xl text-brand-navy sm:text-3xl">
+            Tell us about the role
+          </h2>
+          <div className="mt-6">
+            <InquiryForm
+              formId="client-inquiry"
+              fields={clientFields}
+              action={submitClientInquiry}
+              submitLabel="Discuss My Hiring Need"
+              emailSubject="Hiring inquiry"
+              successTitle="Thank you. Your message has been sent."
+              successBody="Dan and Bill will review your note and reply by email to arrange a conversation. If your need is time-sensitive, you are welcome to call us as well."
+              deliveryConfigured={deliveryConfigured}
+            />
+          </div>
+          <p className="mt-6 text-sm leading-6 text-stone-600">
+            We use the information you share only to respond to your inquiry.
           </p>
-          <div className="mt-8 max-w-2xl rounded-[1.75rem] border border-[#E7E0D2] bg-[#F8F6F2] p-6">
-            <p className="text-sm leading-7 text-[#4B5563]">
-              Whether you are hiring for a critical leadership role, building a confidential search strategy, or exploring the executive talent market, Minotti & Sawyer Associates offers a focused 30-minute introductory discussion.
+        </section>
+
+        <aside aria-labelledby="direct-heading" className="space-y-8">
+          <div className="rounded-3xl bg-brand-navy p-8 text-white">
+            <h2 id="direct-heading" className="font-serif text-2xl">Prefer to reach us directly?</h2>
+            <ul className="mt-5 space-y-3 leading-7 text-slate-200">
+              <li>
+                <span className="block text-sm uppercase tracking-[0.18em] text-brand-gold">Email</span>
+                <a href={mailto("Hiring inquiry")} className="break-all font-semibold text-white underline underline-offset-4">
+                  {site.email}
+                </a>
+              </li>
+              <li>
+                <span className="block text-sm uppercase tracking-[0.18em] text-brand-gold">Phone</span>
+                <a href={site.phoneHref} className="font-semibold text-white underline underline-offset-4">
+                  {site.phoneDisplay}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="rounded-3xl border border-brand-sand bg-white p-8">
+            <h2 className="font-serif text-2xl text-brand-navy">Book a time</h2>
+            <p className="mt-3 leading-7 text-stone-700">
+              Choose a time for a 30-minute introductory conversation.
             </p>
-            <div className="mt-4">
+            <div className="mt-5">
               <GoogleCalendarButton />
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Contact Info + Form */}
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-
-          {/* Contact Details */}
-          <div>
-            <div className="text-sm uppercase tracking-[0.2em] text-[#49604A]">Reach Us</div>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[#19273E]">
-              Get in touch
-            </h2>
-            <div className="mt-8 space-y-6">
-              {contactDetails.map((item) => (
-                <div key={item.label}>
-                  <div className="text-sm font-medium text-[#19273E]">{item.label}</div>
-                  {item.href ? (
-                    <a href={item.href} className="mt-1 block text-base text-[#4B5563] hover:text-[#19273E] transition">
-                      {item.value}
-                    </a>
-                  ) : (
-                    <div className="mt-1 text-base text-[#4B5563]">{item.value}</div>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="mt-10 rounded-[1.75rem] bg-[#19273E] p-8 text-white shadow-sm">
-              <div className="text-sm uppercase tracking-[0.2em] text-[#D9D1C0]">Good to know</div>
-              <p className="mt-4 text-base leading-7 text-slate-100">
-                All conversations are held in strict confidence. We are happy to discuss your
-                situation before you decide whether to engage.
-              </p>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="rounded-[2rem] border border-[#E7E0D2] bg-white p-10 shadow-sm">
-            <div className="text-sm uppercase tracking-[0.2em] text-[#49604A]">Send a Message</div>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[#19273E]">
-              Start the conversation
-            </h2>
-            <form className="mt-8 space-y-6">
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="first-name" className="block text-sm font-medium text-[#374151]">
-                    First name
-                  </label>
-                  <input
-                    type="text"
-                    id="first-name"
-                    name="first-name"
-                    className="mt-2 block w-full rounded-xl border border-[#E7E0D2] bg-[#F8F6F2] px-4 py-3 text-sm text-[#19273E] placeholder-[#A09680] focus:border-[#19273E] focus:outline-none focus:ring-1 focus:ring-[#19273E]"
-                    placeholder="Jane"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="last-name" className="block text-sm font-medium text-[#374151]">
-                    Last name
-                  </label>
-                  <input
-                    type="text"
-                    id="last-name"
-                    name="last-name"
-                    className="mt-2 block w-full rounded-xl border border-[#E7E0D2] bg-[#F8F6F2] px-4 py-3 text-sm text-[#19273E] placeholder-[#A09680] focus:border-[#19273E] focus:outline-none focus:ring-1 focus:ring-[#19273E]"
-                    placeholder="Smith"
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-[#374151]">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="mt-2 block w-full rounded-xl border border-[#E7E0D2] bg-[#F8F6F2] px-4 py-3 text-sm text-[#19273E] placeholder-[#A09680] focus:border-[#19273E] focus:outline-none focus:ring-1 focus:ring-[#19273E]"
-                  placeholder="jane@company.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-[#374151]">
-                  Company
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  className="mt-2 block w-full rounded-xl border border-[#E7E0D2] bg-[#F8F6F2] px-4 py-3 text-sm text-[#19273E] placeholder-[#A09680] focus:border-[#19273E] focus:outline-none focus:ring-1 focus:ring-[#19273E]"
-                  placeholder="Acme Corp"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-[#374151]">
-                  How can we help?
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  className="mt-2 block w-full rounded-xl border border-[#E7E0D2] bg-[#F8F6F2] px-4 py-3 text-sm text-[#19273E] placeholder-[#A09680] focus:border-[#19273E] focus:outline-none focus:ring-1 focus:ring-[#19273E]"
-                  placeholder="Tell us about the role or situation you're navigating..."
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full rounded-full bg-[#19273E] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#243553]"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
+          <p className="leading-7 text-stone-700">
+            Exploring your own next role?{" "}
+            <Link href="/candidates" className="font-semibold text-brand-navy underline underline-offset-4">
+              Introduce yourself here
+            </Link>
+            .
+          </p>
+        </aside>
+      </Container>
+    </>
   );
 }
