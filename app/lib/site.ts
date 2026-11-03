@@ -1,23 +1,19 @@
 import type { Metadata } from "next";
 
-// Verified public contact details (already published on the current site).
+// Public contact details approved by Dan and Bill. Each partner's own details are in
+// lib/content.ts. The website domain stays minottisawyerassociates.com; email uses minottisawyer.com.
 export const site = {
   name: "Minotti & Sawyer Associates",
   shortName: "Minotti | Sawyer",
   tagline: "Consultants in Executive Search",
   url: "https://www.minottisawyerassociates.com",
   domain: "www.minottisawyerassociates.com",
-  email: "minottidjm@gmail.com",
-  phoneDisplay: "704-414-0237",
-  phoneHref: "tel:+17044140237",
+  // Main contact address, used for the prepared-email fallback (Dan).
+  email: "dan@minottisawyer.com",
   location: "Minnesota",
   description:
     "Executive search for technology, data and AI, finance, and supply chain leadership. Direct access to experienced search partners and personal attention throughout the search.",
 };
-
-export function mailto(subject: string) {
-  return `mailto:${site.email}?subject=${encodeURIComponent(subject)}`;
-}
 
 const ogImage = {
   url: "/opengraph-image",

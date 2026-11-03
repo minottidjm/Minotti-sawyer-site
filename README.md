@@ -14,7 +14,8 @@ npm run build && npm run start   # production preview
 ## Where things live
 
 - `app/lib/site.ts`: contact details, site URL, and the shared page metadata helper
-- `app/lib/content.ts`: services, focus areas, process steps, partners, and testimonials. The partner and testimonial sections stay hidden while their lists are empty.
+- `app/lib/content.ts`: services, focus areas, process steps, partner profiles and contact details, and testimonials. The testimonials section stays hidden while its list is empty.
+- `public/partners/`: partner headshots (720×720, cropped from the partners' own materials)
 - `app/lib/forms.ts`: form fields and validation, shared by the browser and the server
 - `app/actions.ts`: server actions for the client inquiry (`/contact`) and candidate introduction (`/candidates`) forms
 - `app/lib/delivery.ts`: email delivery for form submissions
@@ -29,7 +30,7 @@ environment variables (never commit them; `.env*` files are git-ignored):
 | --- | --- |
 | `RESEND_API_KEY` | Resend API key (secret). Use a key limited to sending access. |
 | `INQUIRY_TO_EMAIL` | Recipient address(es), comma-separated |
-| `INQUIRY_FROM_EMAIL` | Verified sender, e.g. `Website <inquiries@minottisawyerassociates.com>` |
+| `INQUIRY_FROM_EMAIL` | Verified sender, e.g. `Website <inquiries@minottisawyer.com>` |
 
 The settings are checked on each request to `/contact` and `/candidates`:
 

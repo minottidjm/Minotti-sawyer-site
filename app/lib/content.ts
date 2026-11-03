@@ -4,81 +4,65 @@
 export type Service = {
   id: string;
   title: string;
+  // One-line description for the homepage card.
   summary: string;
-  situation: string;
-  includes: string[];
-  fits: string[];
-  nextStep: string;
-  note?: string;
+  // Approved description (confirmed by Dan and Bill).
+  description: string;
+  // Key terms restated from the approved description. Do not add fees, periods, or guarantees.
+  terms: string[];
+  // Earlier anchor IDs that should still land on this service.
+  legacyIds?: string[];
 };
+
+// Applies to every engagement model.
+export const engagementTerms =
+  "For every engagement, scope, fees, and responsibilities are agreed before work begins.";
 
 export const services: Service[] = [
   {
-    id: "retained-executive-search",
-    title: "Retained Executive Search",
+    id: "retained-search",
+    title: "Retained Search",
     summary:
-      "Dedicated, exclusive search for critical executive and senior leadership appointments.",
-    situation:
-      "You are filling a role that will shape the direction of the business: a C-suite seat, a general manager, or a senior leader whose decisions carry across the organization. The right person may not be looking, and the search needs discretion.",
-    includes: [
-      "Working sessions with your leadership team to define the role, priorities, and what success looks like",
-      "Market mapping and direct outreach to leaders who are not actively looking",
-      "Structured assessment of experience, leadership style, and fit with your culture",
-      "A curated shortlist, interview coordination, and support through offer and acceptance",
-      "Partner involvement from the first conversation through the final decision",
+      "A dedicated engagement for critical leadership appointments, with fees paid at agreed stages.",
+    description:
+      "A dedicated engagement for critical leadership appointments. Clients retain Minotti & Sawyer to conduct a focused search, with fees paid at agreed stages. Dan and Bill guide the process from defining the role through candidate assessment and selection.",
+    terms: [
+      "A dedicated, focused search for a critical leadership appointment",
+      "Fees paid at agreed stages",
+      "Dan and Bill guide the process from defining the role through assessment and selection",
     ],
-    fits: [
-      "Executive and senior leadership appointments",
-      "Confidential searches, including replacements and successions",
-      "Roles where the candidate pool is small or hard to reach",
-    ],
-    nextStep:
-      "Start with a conversation about the role and your priorities. We will recommend whether a retained search is the right fit.",
+    legacyIds: ["retained-executive-search"],
   },
   {
-    id: "engaged-search",
-    title: "Engaged Search",
+    id: "contingent-search",
+    title: "Contingent Search",
     summary:
-      "Focused recruiting for important senior and functional hires, with an upfront commitment and a more flexible engagement structure.",
-    situation:
-      "You have an important senior or functional hire, such as a director, vice president, or specialist leader, and you want a disciplined search without the full scope of a retained engagement.",
-    includes: [
-      "A clear role profile built with the hiring manager",
-      "Targeted outreach across our network and the relevant market",
-      "Screening and assessment before candidates reach your team",
-      "Regular updates on progress and market feedback",
+      "Recruiting support on a non-exclusive basis, with payment due upon a successful hire.",
+    description:
+      "Recruiting support on a non-exclusive basis, with payment due upon a successful hire. We identify and engage candidates aligned with the client’s requirements while the client remains free to work with other recruiting partners.",
+    terms: [
+      "Non-exclusive: you remain free to work with other recruiting partners",
+      "Payment due upon a successful hire",
+      "We identify and engage candidates aligned with your requirements",
     ],
-    fits: [
-      "Senior functional and director-to-vice-president hires",
-      "Teams that want search discipline with a more flexible structure",
-      "Priority roles that have been hard to fill through job postings",
-    ],
-    nextStep:
-      "Tell us about the role. We will discuss scope and structure and agree on the engagement before work begins.",
   },
   {
-    id: "embedded-talent-partnership",
-    title: "Embedded Talent Partnership",
+    id: "exclusive-search",
+    title: "Exclusive Search",
     summary:
-      "Recruiting leadership and execution support for a defined period during growth, transition, or a leadership buildout.",
-    situation:
-      "You need to hire several leaders or build out a team over the coming months, and you do not have the internal recruiting leadership to run it well.",
-    includes: [
-      "Hiring strategy and prioritization across open roles",
-      "Role scorecards and a consistent interview process",
-      "Sourcing, outreach, and pipeline management",
-      "Regular pipeline reviews with your leadership team",
+      "Minotti & Sawyer as your sole recruiting partner for an agreed period, with payment due upon a successful hire.",
+    description:
+      "Minotti & Sawyer serves as the sole recruiting partner for an agreed period, with payment due upon a successful hire.",
+    terms: [
+      "Minotti & Sawyer is your sole recruiting partner for an agreed period",
+      "Payment due upon a successful hire",
     ],
-    fits: [
-      "Periods of growth or leadership buildout",
-      "Organizational transitions that need focused hiring support",
-      "Companies without a senior internal recruiting leader",
-    ],
-    nextStep:
-      "Share what you need to hire and over what period. We will discuss the scope and length of support that fits.",
-    note: "This is recruiting support delivered by our team. It is not the placement of a fractional or interim executive.",
   },
 ];
+
+// Anchors from the previous service lineup with no direct successor. They land on the
+// top of the service list so old links still resolve.
+export const retiredServiceIds = ["engaged-search", "embedded-talent-partnership"];
 
 export type FocusArea = {
   id: string;
@@ -137,16 +121,64 @@ export const processSteps = [
 ];
 
 export type Partner = {
+  id: string;
   name: string;
+  firstName: string;
   role: string;
+  perspective: string;
+  // Short introduction for the homepage.
+  intro: string;
+  // Full biography for the About page.
   bio: string[];
-  photo?: { src: string; alt: string };
-  linkedin?: string;
+  photo: { src: string; alt: string };
+  email: string;
+  phoneDisplay: string;
+  phoneHref: string;
+  linkedin: string;
 };
 
-// The partner section stays hidden until verified bios are added here.
-// See REVIEW-CHECKLIST.md for what is needed.
-export const partners: Partner[] = [];
+// Biographies are condensed from the partners' own introduction materials (pending final
+// copy review). Placement counts, program values, and revenue figures are intentionally omitted.
+export const partners: Partner[] = [
+  {
+    id: "dan-minotti",
+    name: "Dan Minotti",
+    firstName: "Dan",
+    role: "Co-Founder & Partner",
+    perspective: "Business and transformation perspective",
+    intro:
+      "Dan brings 27 years of consulting experience at Accenture and EY, advising senior executives and leading complex SAP, technology, and business transformations.",
+    bio: [
+      "Dan Minotti is a co-founder and partner of Minotti & Sawyer Associates. He brings 27 years of consulting experience advising senior executives and leading complex business and technology transformations.",
+      "Dan spent more than two decades at Accenture, where he served as a Managing Director and led the Midwest Consumer Goods and Agribusiness practice. He later served as a Technology Partner at EY. His work includes SAP and cloud transformations spanning supply chain, manufacturing, procurement, finance, and commercial operations, working directly with C-suite leaders to connect technology investments with business priorities.",
+      "That experience shapes his approach to search. Having led the kinds of programs clients hire executives to deliver, Dan knows how to evaluate leadership judgment, execution capability, and the ability to build effective teams.",
+    ],
+    photo: { src: "/partners/dan-minotti.jpg", alt: "Portrait of Dan Minotti" },
+    email: "dan@minottisawyer.com",
+    phoneDisplay: "704-414-0237",
+    phoneHref: "tel:+17044140237",
+    linkedin: "https://www.linkedin.com/in/daniel-minotti-57905b3/",
+  },
+  {
+    id: "bill-sawyer",
+    name: "Bill Sawyer",
+    firstName: "Bill",
+    role: "Co-Founder & Partner",
+    perspective: "Executive search and talent perspective",
+    intro:
+      "Bill brings more than 25 years of experience recruiting senior executives, across executive search firms, corporate talent leadership, and EY Consulting.",
+    bio: [
+      "Bill Sawyer is a co-founder and partner of Minotti & Sawyer Associates. He brings more than 25 years of experience identifying, attracting, and recruiting senior executives.",
+      "Before co-founding Minotti & Sawyer, Bill served as an Executive Talent Acquisition Leader for EY Consulting, where he led recruiting strategy for Partner, Principal, and Managing Director roles across SAP, supply chain and operations, cybersecurity, AI and digital, and technology transformation. Earlier in his career, he held leadership roles with Grant Thornton, Carlson Companies, and executive search firms.",
+      "Having worked on both sides of executive search, inside corporations and with search firms, Bill understands what clients need from a search partner and what candidates expect from the process. He combines market knowledge and leadership assessment with a clear sense of what motivates accomplished executives to consider a new opportunity.",
+    ],
+    photo: { src: "/partners/bill-sawyer.jpg", alt: "Portrait of Bill Sawyer" },
+    email: "bill@minottisawyer.com",
+    phoneDisplay: "952-738-1531",
+    phoneHref: "tel:+19527381531",
+    linkedin: "https://www.linkedin.com/in/sawyerbill/",
+  },
+];
 
 export type Testimonial = { quote: string; attribution: string };
 

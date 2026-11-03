@@ -1,4 +1,4 @@
-import { CandidateInvite, HowWeWork, Partners } from "../components/sections";
+import { CandidateInvite, HowWeWork, PartnerBios } from "../components/sections";
 import { ButtonLink, Container, SectionHeading } from "../components/ui";
 import { pageMetadata } from "../lib/site";
 
@@ -53,8 +53,8 @@ export default function AboutPage() {
         </Container>
       </section>
 
+      <PartnerBios />
       <HowWeWork />
-      <Partners />
 
       <section aria-labelledby="values-heading" className="py-20 sm:py-24">
         <Container>

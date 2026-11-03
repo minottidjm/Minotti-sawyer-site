@@ -3,10 +3,12 @@ import Link from "next/link";
 import { submitClientInquiry } from "../actions";
 import GoogleCalendarButton from "../components/GoogleCalendarButton";
 import InquiryForm from "../components/InquiryForm";
+import { PartnerContact } from "../components/sections";
 import { Container, SectionHeading } from "../components/ui";
 import { isDeliveryConfigured } from "../lib/delivery";
+import { partners } from "../lib/content";
 import { clientFields } from "../lib/forms";
-import { mailto, pageMetadata, site } from "../lib/site";
+import { pageMetadata } from "../lib/site";
 
 export const metadata = pageMetadata({
   title: "Discuss a Hiring Need",
@@ -63,19 +65,17 @@ export default async function ContactPage() {
         <aside aria-labelledby="direct-heading" className="space-y-8">
           <div className="rounded-3xl bg-brand-navy p-8 text-white">
             <h2 id="direct-heading" className="font-serif text-2xl">Prefer to reach us directly?</h2>
-            <ul className="mt-5 space-y-3 leading-7 text-slate-200">
-              <li>
-                <span className="block text-sm uppercase tracking-[0.18em] text-brand-gold">Email</span>
-                <a href={mailto("Hiring inquiry")} className="break-all font-semibold text-white underline underline-offset-4">
-                  {site.email}
-                </a>
-              </li>
-              <li>
-                <span className="block text-sm uppercase tracking-[0.18em] text-brand-gold">Phone</span>
-                <a href={site.phoneHref} className="font-semibold text-white underline underline-offset-4">
-                  {site.phoneDisplay}
-                </a>
-              </li>
+            <p className="mt-3 leading-7 text-slate-300">
+              You are welcome to contact either partner by email, phone, or LinkedIn.
+            </p>
+            <ul className="mt-6 space-y-6">
+              {partners.map((partner) => (
+                <li key={partner.id} className="border-t border-white/15 pt-5">
+                  <h3 className="text-lg font-semibold text-white">{partner.name}</h3>
+                  <p className="mb-3 text-sm text-slate-300">{partner.role}</p>
+                  <PartnerContact partner={partner} tone="dark" />
+                </li>
+              ))}
             </ul>
           </div>
           <div className="rounded-3xl border border-brand-sand bg-white p-8">

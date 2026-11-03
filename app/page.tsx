@@ -4,7 +4,7 @@ import {
   ClosingContact,
   FocusAreas,
   HowWeWork,
-  Partners,
+  PartnersSummary,
   ServicesOverview,
   Testimonials,
 } from "./components/sections";
@@ -67,7 +67,7 @@ export default function HomePage() {
       <ServicesOverview />
       <FocusAreas />
       <HowWeWork />
-      <Partners />
+      <PartnersSummary />
       <Testimonials />
       <CandidateInvite />
       <ClosingContact />

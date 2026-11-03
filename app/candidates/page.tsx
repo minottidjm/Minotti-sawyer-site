@@ -4,8 +4,9 @@ import { submitCandidateIntroduction } from "../actions";
 import InquiryForm from "../components/InquiryForm";
 import { Container, SectionHeading } from "../components/ui";
 import { isDeliveryConfigured } from "../lib/delivery";
+import { partners } from "../lib/content";
 import { candidateFields } from "../lib/forms";
-import { mailto, pageMetadata, site } from "../lib/site";
+import { pageMetadata } from "../lib/site";
 
 export const metadata = pageMetadata({
   title: "Explore Your Next Move",
@@ -86,15 +87,24 @@ export default async function CandidatesPage() {
           <section aria-labelledby="email-heading" className="rounded-3xl border border-brand-sand bg-white p-8">
             <h2 id="email-heading" className="font-serif text-2xl text-brand-navy">Prefer email?</h2>
             <p className="mt-3 leading-7 text-stone-700">
-              Write to{" "}
-              <a
-                href={mailto("Candidate introduction")}
-                className="break-all font-semibold text-brand-navy underline underline-offset-4"
-              >
-                {site.email}
-              </a>{" "}
-              with a short note about your interests.
+              Send a short note about your interests to either partner.
             </p>
+            <ul className="mt-4 space-y-3 leading-7">
+              {partners.map((partner) => (
+                <li key={partner.id}>
+                  <span className="block text-sm font-semibold uppercase tracking-[0.14em] text-brand-olive">
+                    {partner.name}
+                  </span>
+                  <a
+                    href={`mailto:${partner.email}?subject=${encodeURIComponent("Candidate introduction")}`}
+                    aria-label={`Email ${partner.name} at ${partner.email}`}
+                    className="inline-block py-1 font-semibold [overflow-wrap:anywhere] text-brand-navy underline underline-offset-4"
+                  >
+                    {partner.email}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </section>
           <p className="leading-7 text-stone-700">
             Hiring for your organization?{" "}

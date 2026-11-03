@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { focusAreas, partners, processSteps, services, testimonials } from "../lib/content";
-import { site } from "../lib/site";
+import {
+  engagementTerms,
+  focusAreas,
+  partners,
+  processSteps,
+  services,
+  testimonials,
+  type Partner,
+} from "../lib/content";
 import GoogleCalendarButton from "./GoogleCalendarButton";
 import { ButtonLink, Container, Eyebrow, SectionHeading } from "./ui";
 
@@ -13,7 +20,7 @@ export function ServicesOverview() {
           id="services-heading"
           eyebrow="Services"
           title="Three ways to work with us."
-          intro="Each engagement is shaped around the role, your timing, and how much support your team needs."
+          intro={`Choose the model that fits the role and how you prefer to hire. ${engagementTerms}`}
         />
         <ul className="mt-12 grid gap-6 lg:grid-cols-3">
           {services.map((service) => (
@@ -100,41 +107,141 @@ export function HowWeWork() {
   );
 }
 
-// Renders only once verified partner bios exist in lib/content.ts.
-export function Partners() {
-  if (partners.length === 0) return null;
+const contactLink = {
+  default: "font-semibold text-brand-navy underline decoration-brand-gold decoration-2 underline-offset-4 hover:decoration-brand-navy",
+  dark: "font-semibold text-white underline decoration-brand-gold decoration-2 underline-offset-4 hover:decoration-white",
+};
+
+// A partner's email, mobile, and LinkedIn, each labeled and linked.
+export function PartnerContact({ partner, tone = "default" }: { partner: Partner; tone?: "default" | "dark" }) {
+  const label = `text-sm font-semibold uppercase tracking-[0.14em] ${tone === "dark" ? "text-brand-gold" : "text-brand-olive"}`;
+  const link = `inline-block py-1 ${contactLink[tone]}`;
+  // Labels sit above the values in narrow containers and beside them when there is room.
+  const row = "flex flex-col @xs:flex-row @xs:items-baseline @xs:gap-x-4";
+  const dt = `shrink-0 @xs:w-24 ${label}`;
+  return (
+    <dl className="@container space-y-2 leading-7 @xs:space-y-1">
+      <div className={row}>
+        <dt className={dt}>Email</dt>
+        <dd className="min-w-0 [overflow-wrap:anywhere]">
+          <a href={`mailto:${partner.email}`} aria-label={`Email ${partner.name} at ${partner.email}`} className={link}>
+            {partner.email}
+          </a>
+        </dd>
+      </div>
+      <div className={row}>
+        <dt className={dt}>Mobile</dt>
+        <dd>
+          <a href={partner.phoneHref} aria-label={`Call ${partner.name} at ${partner.phoneDisplay}`} className={link}>
+            {partner.phoneDisplay}
+          </a>
+        </dd>
+      </div>
+      <div className={row}>
+        <dt className={dt}>LinkedIn</dt>
+        <dd>
+          <a href={partner.linkedin} className={link}>
+            {partner.name} on LinkedIn
+          </a>
+        </dd>
+      </div>
+    </dl>
+  );
+}
+
+function PartnerPhoto({ partner, sizes, className }: { partner: Partner; sizes: string; className: string }) {
+  return (
+    <Image
+      src={partner.photo.src}
+      alt={partner.photo.alt}
+      width={720}
+      height={720}
+      sizes={sizes}
+      className={`aspect-square rounded-2xl object-cover ${className}`}
+    />
+  );
+}
+
+// Homepage: short introductions that link to the full biographies on About.
+export function PartnersSummary() {
   return (
     <section aria-labelledby="partners-heading" className="py-20 sm:py-24">
       <Container>
-        <SectionHeading id="partners-heading" eyebrow="Our Partners" title="Meet Dan and Bill." />
-        <ul className="mt-12 grid gap-8 md:grid-cols-2">
+        <SectionHeading
+          id="partners-heading"
+          eyebrow="Our Partners"
+          title="Meet Dan and Bill."
+          intro="Two complementary perspectives: business transformation experience and executive search discipline."
+        />
+        <ul className="mt-12 grid gap-6 md:grid-cols-2">
           {partners.map((partner) => (
-            <li key={partner.name} className="rounded-3xl border border-brand-sand bg-white p-8">
-              {partner.photo && (
-                <Image
-                  src={partner.photo.src}
-                  alt={partner.photo.alt}
-                  width={160}
-                  height={160}
-                  className="h-32 w-32 rounded-full object-cover"
-                />
-              )}
-              <h3 className="mt-6 font-serif text-2xl text-brand-navy">{partner.name}</h3>
-              <p className="text-brand-olive">{partner.role}</p>
-              {partner.bio.map((paragraph) => (
-                <p key={paragraph} className="mt-4 leading-7 text-stone-700">{paragraph}</p>
-              ))}
-              {partner.linkedin && (
-                <a
-                  href={partner.linkedin}
-                  className="mt-6 inline-block font-semibold text-brand-navy underline underline-offset-4"
-                >
-                  {partner.name} on LinkedIn
-                </a>
-              )}
+            <li key={partner.id} className="flex flex-col rounded-3xl border border-brand-sand bg-white p-6 sm:p-8">
+              <div className="flex items-center gap-5">
+                <PartnerPhoto partner={partner} sizes="(min-width: 640px) 128px, 96px" className="h-24 w-24 shrink-0 sm:h-32 sm:w-32" />
+                <div>
+                  <h3 className="font-serif text-2xl text-brand-navy">{partner.name}</h3>
+                  <p className="text-stone-700">{partner.role}</p>
+                </div>
+              </div>
+              <p className="mt-5 text-sm font-semibold uppercase tracking-[0.14em] text-brand-olive">{partner.perspective}</p>
+              <p className="mt-2 flex-1 leading-7 text-stone-700">{partner.intro}</p>
+              <div className="mt-6 border-t border-brand-sand pt-5">
+                <PartnerContact partner={partner} />
+              </div>
+              <Link
+                href={`/about#${partner.id}`}
+                className="mt-5 inline-block self-start py-1 font-semibold text-brand-navy underline decoration-brand-gold decoration-2 underline-offset-4 hover:decoration-brand-navy"
+              >
+                Read {partner.firstName}&rsquo;s full biography
+              </Link>
             </li>
           ))}
         </ul>
+      </Container>
+    </section>
+  );
+}
+
+// About page: full biographies.
+export function PartnerBios() {
+  return (
+    <section id="partners" aria-labelledby="partners-heading" className="py-20 sm:py-24">
+      <Container>
+        <SectionHeading
+          id="partners-heading"
+          eyebrow="Our Partners"
+          title="Meet Dan and Bill."
+          intro="Two complementary perspectives: business transformation experience and executive search discipline."
+        />
+        <div className="mt-12 space-y-8">
+          {partners.map((partner) => (
+            <article
+              key={partner.id}
+              id={partner.id}
+              aria-labelledby={`${partner.id}-name`}
+              className="grid gap-8 rounded-3xl border border-brand-sand bg-white p-6 sm:p-10 md:grid-cols-[220px_1fr] lg:grid-cols-[260px_1fr] lg:gap-12"
+            >
+              <div>
+                <PartnerPhoto
+                  partner={partner}
+                  sizes="(min-width: 1024px) 260px, (min-width: 768px) 220px, 240px"
+                  className="w-full max-w-60 md:max-w-none"
+                />
+              </div>
+              <div>
+                <h3 id={`${partner.id}-name`} className="font-serif text-3xl text-brand-navy">{partner.name}</h3>
+                <p className="mt-1 text-lg text-stone-700">{partner.role}</p>
+                <p className="mt-1 text-sm font-semibold uppercase tracking-[0.14em] text-brand-olive">{partner.perspective}</p>
+                {partner.bio.map((paragraph) => (
+                  <p key={paragraph} className="mt-5 leading-7 text-stone-700">{paragraph}</p>
+                ))}
+                <div className="mt-8 border-t border-brand-sand pt-6">
+                  <PartnerContact partner={partner} />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </Container>
     </section>
   );
@@ -218,19 +325,19 @@ export function ClosingContact() {
           </li>
           <li className="flex flex-col rounded-3xl border border-brand-sand bg-white p-8">
             <h3 className="font-serif text-2xl text-brand-navy">Talk with us directly</h3>
-            <ul className="mt-3 space-y-2 leading-7 text-stone-700">
-              <li>
-                Email:{" "}
-                <a href={`mailto:${site.email}`} className="inline-block break-all py-1 font-semibold text-brand-navy underline underline-offset-4">
-                  {site.email}
-                </a>
-              </li>
-              <li>
-                Phone:{" "}
-                <a href={site.phoneHref} className="inline-block py-1 font-semibold text-brand-navy underline underline-offset-4">
-                  {site.phoneDisplay}
-                </a>
-              </li>
+            <ul className="mt-3 space-y-4 leading-7 text-stone-700">
+              {partners.map((partner) => (
+                <li key={partner.id}>
+                  <p className="font-semibold text-brand-navy">{partner.name}</p>
+                  <a href={`mailto:${partner.email}`} aria-label={`Email ${partner.name} at ${partner.email}`} className={`inline-block py-1 [overflow-wrap:anywhere] ${contactLink.default}`}>
+                    {partner.email}
+                  </a>
+                  <br />
+                  <a href={partner.phoneHref} aria-label={`Call ${partner.name} at ${partner.phoneDisplay}`} className={`inline-block py-1 ${contactLink.default}`}>
+                    {partner.phoneDisplay}
+                  </a>
+                </li>
+              ))}
             </ul>
             <div className="mt-6">
               <GoogleCalendarButton />

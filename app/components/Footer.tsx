@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { partners } from "../lib/content";
 import { site } from "../lib/site";
 
 export default function Footer() {
@@ -25,9 +26,18 @@ export default function Footer() {
         </nav>
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-gold">Contact</p>
-          <ul className="mt-4 space-y-2">
-            <li><a href={`mailto:${site.email}`} className="inline-block break-all py-1 hover:text-white hover:underline">{site.email}</a></li>
-            <li><a href={site.phoneHref} className="inline-block py-1 hover:text-white hover:underline">{site.phoneDisplay}</a></li>
+          <ul className="mt-4 space-y-4">
+            {partners.map((partner) => (
+              <li key={partner.id}>
+                <p className="font-semibold text-white">{partner.name}</p>
+                <a href={`mailto:${partner.email}`} aria-label={`Email ${partner.name} at ${partner.email}`} className="block py-1 [overflow-wrap:anywhere] hover:text-white hover:underline">
+                  {partner.email}
+                </a>
+                <a href={partner.phoneHref} aria-label={`Call ${partner.name} at ${partner.phoneDisplay}`} className="inline-block py-1 hover:text-white hover:underline">
+                  {partner.phoneDisplay}
+                </a>
+              </li>
+            ))}
             <li>{site.location}</li>
           </ul>
         </div>
